@@ -11,9 +11,14 @@ offset=86400
 while [ "$dateTs" -le "$eDateTs" ]
 do
   date=`date -j -f "%s" $dateTs "+%Y-%m-%d"`
-  git add .
-  git commit --date="$date" -m "Contribution" --allow-empty
-  git -push -u origin master 
-  printf '%s\n' $date
-  dateTs=$(($dateTs+$offset))
+  rand=$(((RANDOM % 5) + 1))
+        for j in $(seq 1 $rand)
+        do
+            git add .
+            git commit --date="$date" -m "Contribution" --allow-empty 
+            printf '%s\n' $date
+            dateTs=$(($dateTs+$offset))
+        done
 done
+
+git push -u origin master
